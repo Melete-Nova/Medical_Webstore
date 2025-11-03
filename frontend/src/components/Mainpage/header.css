@@ -1,0 +1,106 @@
+/* Basic styling for the body to provide context */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation Bar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a1a1a; /* Dark black background */
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Logo Styling */
+.logo a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.logo a span {
+    color: #e53935; /* Vibrant red color */
+}
+
+/* Navigation Links Styling */
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1rem;
+    padding-bottom: 5px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect for links */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #e53935;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #e53935;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Sign In Button Styling */
+.signin-btn {
+    background-color: #e53935;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #ffffff;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.signin-btn:hover {
+    background-color: #c62828; /* Darker red on hover */
+    transform: translateY(-2px);
+    color: #ffffff !important; /* Keep text color white on hover */
+}
+
+.signin-btn:hover::after {
+    width: 0; /* Remove underline effect for the button */
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+
+    .nav-links {
+        margin-top: 1rem;
+    }
+
+    .nav-links li {
+        margin: 0 1rem;
+    }
+}

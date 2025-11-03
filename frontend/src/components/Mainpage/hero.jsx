@@ -1,0 +1,55 @@
+import React, { useState, useEffect } from 'react';
+import './hero.css';
+
+const products = [
+    {
+        id: 1,
+        title: 'Advanced Diagnostic Kit',
+        description: 'State-of-the-art diagnostic tools for accurate and fast results.',
+        image: 'https://via.placeholder.com/1200x500/000000/E53935?text=Product+1', // Placeholder image
+    },
+    {
+        id: 2,
+        title: 'Precision Surgical Scalpels',
+        description: 'Ergonomically designed for precision and control in surgical procedures.',
+        image: 'https://via.placeholder.com/1200x500/1a1a1a/E53935?text=Product+2', // Placeholder image
+    },
+    {
+        id: 3,
+        title: 'Digital Health Monitor',
+        description: 'Monitor vital signs in real-time with our smart health monitor.',
+        image: 'https://via.placeholder.com/1200x500/333333/E53935?text=Product+3', // Placeholder image
+    },
+];
+
+const Hero = () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveIndex((prevIndex) => (prevIndex + 1) % products.length);
+        }, 5000); // Change product every 5 seconds
+
+        return () => clearInterval(interval); // Cleanup on component unmount
+    }, []);
+
+    return (
+        <section className="hero-section">
+            {products.map((product, index) => (
+                <div
+                    key={product.id}
+                    className={`hero-slide ${index === activeIndex ? 'active' : ''}`}
+                    style={{ backgroundImage: `url(${product.image})` }}
+                >
+                    <div className="hero-content">
+                        <h1 className="hero-title">{product.title}</h1>
+                        <p className="hero-description">{product.description}</p>
+                        <button className="hero-button">Learn More</button>
+                    </div>
+                </div>
+            ))}
+        </section>
+    );
+};
+
+export default Hero;
