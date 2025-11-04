@@ -3,7 +3,7 @@ import './products.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Plus, Trash } from 'react-bootstrap-icons';
 
-const initialProducts = [
+export const initialProducts = [
     {
         id: 1,
         name: 'Medi-Gel Ointment',

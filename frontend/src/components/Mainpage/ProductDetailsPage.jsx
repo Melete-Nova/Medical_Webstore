@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { products } from './products'; // Import data from your new file
+import { initialProducts as products } from './products'; // Import data from your new file
 import './ProductDetailsPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
