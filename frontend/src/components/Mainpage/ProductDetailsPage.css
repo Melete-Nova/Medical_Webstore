@@ -1,0 +1,64 @@
+.product-detail-container {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.product-main-image {
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+    padding-left: 2rem;
+}
+
+.product-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.product-rating span {
+    color: #f8c425;
+    font-weight: bold;
+}
+
+.product-rating a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.product-price .current-price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #e53935;
+}
+
+.product-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.action-box {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+.price-in-box {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #e53935;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (max-width: 767px) {
+    .product-info {
+        padding-left: 0;
+        margin-top: 2rem;
+    }
+}

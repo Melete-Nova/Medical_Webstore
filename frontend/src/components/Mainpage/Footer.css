@@ -1,0 +1,99 @@
+/* Main Footer Styling */
+.site-footer {
+    background-color: #1a1a1a;
+    color: #cccccc;
+    padding: 4rem 0 2rem 0;
+    font-size: 0.9rem;
+}
+
+/* Logo in Footer */
+.footer-logo a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.footer-logo a span {
+    color: #e53935;
+}
+
+.footer-about {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* Social Media Icons */
+.social-icons a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #333333;
+    color: #ffffff;
+    margin-right: 10px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #e53935;
+    color: #ffffff;
+}
+
+/* Footer Headings */
+.footer-heading {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Footer Links Styling */
+.footer-links li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+    color: #cccccc;
+    text-decoration: none;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #e53935;
+    padding-left: 5px;
+}
+
+/* Contact Info Styling */
+.contact-info li {
+    margin-bottom: 0.75rem;
+}
+
+.contact-info a {
+    color: #e53935;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Bottom Bar */
+.footer-bottom {
+    border-top: 1px solid #333333;
+    text-align: center;
+    padding-top: 2rem;
+    margin-top: 2rem;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: #777777;
+}

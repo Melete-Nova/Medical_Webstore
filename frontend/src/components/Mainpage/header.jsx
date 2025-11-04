@@ -6,7 +6,10 @@ const Header = () => {
         <header>
             <nav className="navbar">
                 <div className="logo">
-                    <a href="#">Medi<span>Store</span></a>
+                    {/* Use the imported logo in the src attribute */}
+                    <a href="#">
+                        <img src={'../assets/images/logo.png'} alt="MediStore Logo" className="logo-image" />
+                    </a>
                 </div>
                 <ul className="nav-links">
                     <li><a href="#">Home</a></li>

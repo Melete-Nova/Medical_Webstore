@@ -1,96 +1,80 @@
 /* Product List Section Styling */
 .product-list-section {
-    background-color: #f0f2f5;
+    background-color: #f4f4f4;
 }
 
 .section-title {
     color: #1a1a1a;
-    font-weight: 700;
+    font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 /* Product Card Styling */
 .product-card {
     background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    overflow: visible;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    color: #333;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeIn 0.5s ease-out;
-    padding-top: 50px;
-    position: relative;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
 }
 
+/* Card Hover Animation */
 .product-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(229, 57, 53, 0.3);
+    box-shadow: 0 10px 25px rgba(229, 57, 53, 0.4); /* Red glow on hover */
 }
 
+/* NEW Image Container for larger image */
 .product-image-container {
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease;
-}
-
-.product-card:hover .product-image-container {
-    transform: translateX(-50%) scale(1.1);
+    height: 200px; /* Set a fixed height for all image containers */
+    overflow: hidden;
+    background-color: #f0f0f0;
 }
 
 .product-image {
-    width: 90%;
-    height: 90%;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the container without distortion */
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05); /* Zoom effect on image */
 }
 
 .product-card .card-body {
     padding: 1.5rem;
-    padding-top: 60px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    text-align: center;
 }
 
 .product-card .card-title {
     color: #1a1a1a;
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
 }
 
 .product-card .card-text {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: #666;
-    height: 60px;
-    overflow: hidden;
-    flex-grow: 1;
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Allows description to take available space */
 }
 
+/* Price Tag Styling */
 .price-tag {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #e53935;
-    margin: 1rem 0;
+    color: #e53935; /* Red price */
+    margin-bottom: 1rem;
 }
 
-/* Cart Controls Container */
+/* Cart Controls */
 .cart-controls {
-    margin-top: auto;
-    height: 40px; /* Set fixed height to prevent layout shift */
+    height: 40px; /* Fixed height to prevent layout shift */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,7 +94,6 @@
 
 .add-to-cart-btn:hover {
     background-color: #1a1a1a;
-    color: #ffffff;
     transform: scale(1.05);
 }
 
@@ -132,9 +115,6 @@
     font-size: 1.2rem;
     font-weight: bold;
     padding: 5px 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .quantity-btn:hover {
@@ -149,7 +129,7 @@
     padding: 0 15px;
 }
 
-/* Animation */
+/* Initial fade-in animation for cards */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -159,4 +139,9 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+/* Add this to your ProductList.css */
+a.product-link, a.product-link:hover {
+    text-decoration: none;
+    color: inherit;
 }
