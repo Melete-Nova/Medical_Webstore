@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './products.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Plus, Trash } from 'react-bootstrap-icons';
+import { useNavigate } from 'react-router-dom';
 
 export const initialProducts = [
     {
@@ -78,6 +79,12 @@ export const initialProducts = [
 
 const ProductList = () => {
     const [cart, setCart] = useState({});
+    const navigate = useNavigate();
+
+    const handleCardClick = (id, e) => {
+        if (e.target.closest('.quantity-btn') || e.target.closest('.add-to-cart-btn')) return;
+        navigate(`/product/${id}`);
+    };
 
     const handleIncreaseQuantity = (productId) => {
         setCart(prevCart => ({ ...prevCart, [productId]: (prevCart[productId] || 0) + 1 }));
@@ -103,8 +110,15 @@ const ProductList = () => {
                     {initialProducts.map((product) => {
                         const quantity = cart[product.id] || 0;
                         return (
-                            <div key={product.id} className="col-lg-3 col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
-                                <div className="card product-card h-100">
+                            <div
+                                key={product.id}
+                                className="col-lg-3 col-md-4 col-sm-6 mb-4 d-flex align-items-stretch"
+                            >
+                                <div
+                                    className="card product-card h-100"
+                                    onClick={(e) => handleCardClick(product.id, e)}
+                                    style={{ cursor: 'pointer' }}
+                                >
                                     <div className="product-image-container">
                                         <img src={product.image} className="card-img-top product-image" alt={product.name} />
                                     </div>
