@@ -107,7 +107,7 @@ const ProductList = () => {
             <div className="container">
                 <h2 className="text-center mb-5 section-title">Featured Products</h2>
                 <div className="row">
-                    {initialProducts.map((product) => {
+                    {initialProducts.map((product) => { // Use the imported products array
                         const quantity = cart[product.id] || 0;
                         return (
                             <div
@@ -124,7 +124,8 @@ const ProductList = () => {
                                     </div>
                                     <div className="card-body d-flex flex-column">
                                         <h5 className="card-title">{product.name}</h5>
-                                        <p className="card-text">{product.description}</p>
+                                        {/* Use fullDescription to match the new data structure */}
+                                        <p className="card-text">{product.fullDescription}</p>
                                         <div className="price-tag mt-auto">{product.price}</div>
                                         <div className="cart-controls">
                                             {quantity === 0 ? (
