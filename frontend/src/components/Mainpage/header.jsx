@@ -1,31 +1,28 @@
 import React from 'react';
-import { Cart } from 'react-bootstrap-icons'; // Import the Cart icon
+import { Link } from 'react-router-dom'; // Import Link
+import { Cart } from 'react-bootstrap-icons';
 import './header.css';
-// import logo from '../assets/images/logo.png'; // Import the logo to ensure it's processed correctly
+// import logo from 'assets/images/logo.png';
 
-/**
- * The Header component.
- * @param {object} props - The component props.
- * @param {number} props.cartCount - The total number of items in the cart.
- */
 const Header = ({ cartCount = 0 }) => {
     return (
         <header>
             <nav className="navbar">
                 <div className="logo">
-                    <a href="#">
-                        <img src={'../assets/images/logo.png'} alt="MediStore Logo" className="logo-image" />
-                    </a>
+                    <Link to="/">
+                        <img src={'assets/images/logo.png'} alt="MediStore Logo" className="logo-image" />
+                    </Link>
                 </div>
                 <ul className="nav-links">
-                    <li><a href="#">Home</a></li>
+                    <li><Link to="/">Home</Link></li>
                     <li>
-                        <a href="#" className="cart-link">
+                        {/* Turn the cart icon into a link */}
+                        <Link to="/cart" className="cart-link">
                             <Cart size={24} />
                             {cartCount > 0 && (
                                 <span className="cart-badge">{cartCount}</span>
                             )}
-                        </a>
+                        </Link>
                     </li>
                     <li><a href="#" className="signin-btn">Sign In</a></li>
                 </ul>

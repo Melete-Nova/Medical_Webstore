@@ -7,6 +7,7 @@ import Hero from './components/Mainpage/hero';
 import ProductList from './components/Mainpage/products';
 import Footer from './components/Mainpage/Footer';
 import ProductDetailPage from './components/Mainpage/ProductDetailsPage';
+import CartPage from './components/Mainpage/CartPage'; // Import the new CartPage
 
 const App = () => {
   const [cart, setCart] = useState({});
@@ -47,7 +48,6 @@ const App = () => {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* --- Pass cart state and handlers to the details page --- */}
             <Route 
               path="/product/:id" 
               element={
@@ -57,6 +57,17 @@ const App = () => {
                   onDecreaseQuantity={handleDecreaseQuantity}
                 />
               } 
+            />
+            {/* --- Add the new CartPage route --- */}
+            <Route 
+              path="/cart"
+              element={
+                <CartPage 
+                  cart={cart}
+                  onIncreaseQuantity={handleIncreaseQuantity}
+                  onDecreaseQuantity={handleDecreaseQuantity}
+                />
+              }
             />
           </Routes>
         </main>
