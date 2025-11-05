@@ -6,7 +6,7 @@ const products = [
         id: 1,
         title: 'Advanced Diagnostic Kit',
         description: 'State-of-the-art diagnostic tools for accurate and fast results.',
-        image: '../assets/images/rapid up.png', // Placeholder image
+        image: '../assets/images/hoha 20.png', // Placeholder image
     },
     {
         id: 2,

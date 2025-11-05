@@ -4,6 +4,8 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    /* Add padding to the top to prevent content from hiding behind the fixed navbar */
+    padding-top: 80px; /* Adjust this value based on the actual height of your navbar */
 }
 
 /* Navigation Bar Styling */
@@ -14,6 +16,13 @@ body {
     background-color: #1a1a1a; /* Dark black background */
     padding: 1rem 2rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+
+    /* --- Changes for the sticky header --- */
+    position: fixed; /* Lock the navbar's position */
+    top: 0;          /* Position it at the top of the viewport */
+    left: 0;         /* Align it to the left of the viewport */
+    width: 100%;     /* Make it span the full width */
+    z-index: 1000;   /* Ensure it stays on top of other content */
 }
 
 /* Logo Styling */
@@ -22,6 +31,10 @@ body {
     color: #ffffff;
     font-size: 1.8rem;
     font-weight: bold;
+}
+
+.logo-image {
+    max-height: 50px; /* Adjust height as needed */
 }
 
 .logo a span {
@@ -69,6 +82,27 @@ body {
 .nav-links a:hover::after {
     width: 100%;
 }
+
+/* Cart Icon and Badge Styling */
+.cart-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background-color: #e53935;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border: 1px solid #1a1a1a;
+}
+
 
 /* Sign In Button Styling */
 .signin-btn {
