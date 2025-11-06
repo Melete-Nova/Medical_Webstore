@@ -3,15 +3,34 @@ import './products.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Plus, Trash } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
-import { products } from './ProductList.js';
 
-const ProductList = ({ cart, onIncreaseQuantity, onDecreaseQuantity }) => {
+const ProductList = ({ products, cart, onIncreaseQuantity, onDecreaseQuantity }) => {
     const navigate = useNavigate();
 
-    const handleCardClick = (id, e) => {
-        if (e.target.closest('.quantity-btn') || e.target.closest('.add-to-cart-btn')) return;
+    const handleCardClick = (id) => {
         navigate(`/product/${id}`);
     };
+
+    // --- These handlers now stop the event from bubbling up ---
+    const handleIncrease = (e, id) => {
+        e.stopPropagation(); // Stop the click from reaching the card's onClick
+        onIncreaseQuantity(id);
+    };
+
+    const handleDecrease = (e, id) => {
+        e.stopPropagation(); // Stop the click from reaching the card's onClick
+        onDecreaseQuantity(id);
+    };
+
+
+    if (products.length === 0) {
+        return (
+            <div className="container py-5 text-center">
+                <h3>No products found</h3>
+                <p className="text-muted">Try adjusting your search or filter.</p>
+            </div>
+        );
+    }
 
     return (
         <div className="product-list-section py-5">
@@ -27,7 +46,7 @@ const ProductList = ({ cart, onIncreaseQuantity, onDecreaseQuantity }) => {
                             >
                                 <div
                                     className="card product-card h-100"
-                                    onClick={(e) => handleCardClick(product.id, e)}
+                                    onClick={() => handleCardClick(product.id)}
                                     style={{ cursor: 'pointer' }}
                                 >
                                     <div className="product-image-container">
@@ -37,21 +56,20 @@ const ProductList = ({ cart, onIncreaseQuantity, onDecreaseQuantity }) => {
                                         <h5 className="card-title">{product.name}</h5>
                                         <p className="card-text">{product.smalldescription}</p>
                                         
-                                        {/* This new div pushes the price and button to the bottom */}
                                         <div className="product-footer">
                                             <div className="price-tag">{product.price}</div>
                                             <div className="cart-controls">
                                                 {quantity === 0 ? (
-                                                    <button className="btn add-to-cart-btn" onClick={() => onIncreaseQuantity(product.id)}>
+                                                    <button className="btn add-to-cart-btn" onClick={(e) => handleIncrease(e, product.id)}>
                                                         Add to Cart
                                                     </button>
                                                 ) : (
                                                     <div className="quantity-controller">
-                                                        <button className="btn quantity-btn" onClick={() => onDecreaseQuantity(product.id)}>
+                                                        <button className="btn quantity-btn" onClick={(e) => handleDecrease(e, product.id)}>
                                                             {quantity === 1 ? <Trash size={16} /> : '-'}
                                                         </button>
                                                         <span className="quantity-display">{quantity}</span>
-                                                        <button className="btn quantity-btn" onClick={() => onIncreaseQuantity(product.id)}>
+                                                        <button className="btn quantity-btn" onClick={(e) => handleIncrease(e, product.id)}>
                                                             <Plus size={20} />
                                                         </button>
                                                     </div>

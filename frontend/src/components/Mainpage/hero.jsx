@@ -6,19 +6,19 @@ const products = [
         id: 1,
         title: 'Advanced Diagnostic Kit',
         description: 'State-of-the-art diagnostic tools for accurate and fast results.',
-        image: '../assets/images/hoha 20.png', // Placeholder image
+        image: '../assets/images/hoha_20.png', // Placeholder image
     },
     {
         id: 2,
         title: 'Precision Surgical Scalpels',
         description: 'Ergonomically designed for precision and control in surgical procedures.',
-        image: '../assets/images/sarma balm.png', // Placeholder image
+        image: '../assets/images/sarma_balm.png', // Placeholder image
     },
     {
         id: 3,
         title: 'Digital Health Monitor',
         description: 'Monitor vital signs in real-time with our smart health monitor.',
-        image: '../assets/images/hoha 20.png', // Placeholder image
+        image: '../assets/images/hoha_20.png', // Placeholder image
     },
 ];
 

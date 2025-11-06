@@ -254,3 +254,13 @@ input {
     padding: 10px 35px;
   }
 }
+
+
+/* --- Add this style to the end of your AuthPage.css file --- */
+
+.admin-toggle-link {
+    margin-top: 15px;
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+}

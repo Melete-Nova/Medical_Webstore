@@ -7,10 +7,11 @@ export const products = [
         price: '$19.99',
         smalldescription: 'Emu Oil Pain Relief',
         fullDescription: 'A powerful and exclusive topical application for relief of pain with emu bird oil Emu bird oil is very well recognised in the treatment of rheumatic pains all over the world Be it a rheumatic pain, neurological or musculo-skeletal disorders relief is instant from immobility to mobility. Double action Bonlin proved to be an effective topical pain oil with Emu bird oil along with Devadaru, Gandupura Tailam, Kajuput Thailam etc.',
-        image: '../assets/images/bonlin liniment.png',
+        image: '../assets/images/bonlin linimnent.png',
         rating: 4.5,
         reviews: 120,
         inStock: true,
+        category: 'Pain Relief',
     },
     {
         id: 2,
@@ -22,8 +23,8 @@ export const products = [
         rating: 4.8,
         reviews: 250,
         inStock: true,
+        category: 'Wellness',
     },
-    // ... add full details for other products as needed
     {
         id: 3,
         name: 'Cheveux',
@@ -34,6 +35,7 @@ export const products = [
         rating: 4.3,
         reviews: 95,
         inStock: false,
+        category: 'Hair Care',
     },
     {
         id: 4,
@@ -45,9 +47,8 @@ export const products = [
         rating: 4.7,
         reviews: 310,
         inStock: true,
+        category: 'Digestive Health',
     },
-    // ... Add other products here
-
     {
         id: 5,
         name: 'Gyn-30',
@@ -58,6 +59,7 @@ export const products = [
         rating: 4.7,
         reviews: 310,
         inStock: true,
+        category: 'Women\'s Health',
     },
 
     {
@@ -70,6 +72,7 @@ export const products = [
         rating: 4.7,
         reviews: 310,
         inStock: true,
+        category: 'Men\'s Health',
     },
 
     {
@@ -82,6 +85,7 @@ export const products = [
         rating: 4.7,
         reviews: 310,
         inStock: true,
+        category: 'Wellness',
     },
 
     {
@@ -90,10 +94,11 @@ export const products = [
         price: '$59.99',
         smalldescription: 'All-Purpose Pain Balm',
         fullDescription: 'ur new product SARMA BALM is a unique balm for all pains',
-        image: '../assets/images/sarma balm.png',
+        image: '../assets/images/sarma_balm.png',
         rating: 4.7,
         reviews: 310,
         inStock: true,
+        category: 'Pain Relief',
     },
 
     {
@@ -106,6 +111,7 @@ export const products = [
         rating: 4.7,
         reviews: 310,
         inStock: true,
+        category: 'Health Drinks',
     },
 
     {
@@ -118,6 +124,7 @@ export const products = [
         rating: 4.7,
         reviews: 310,
         inStock: true,
+        category: 'Health Drinks',
     },
 
     {
@@ -130,11 +137,12 @@ export const products = [
         rating: 4.7,
         reviews: 310,
         inStock: true,
+        category: 'Health Foods',
     },
 
     {
         id: 12,
-        name: 'HOHA 20',
+        name: 'HOHA_20',
         price: '$59.99',
         smalldescription: 'Herbal Diabetes Control',
         fullDescription: 'Diabetics is a chronic metabolic disorder and damages every vital organ in the body slowly if it is not treated properly and on time. India has become a diabetic capital of the world. So it is the time to protect and prevent from spreading with a sure and definite drug to combat the problem. HOHA-20 contains mostly Tiktha pradhana dravyas (of bitter origin) Helps correct impairment of insulin secretion and activates BETA CELLS to various insulin secretogogues. Controls post-pradial hypoglycemia. Increases vasodailatory action to inflow in the pancreatic gland. Increases metabolic activity at tissue and cellular level. Can be safely taken along with other OHA DRUGS. Safely and gradually can reduce the dependence of OHA DRUGS. Protects from retinoneuropathy, kidney damage, weight loss and other metabolic debilitating conditions. The rational combination of age-old and time tested herbs.',
@@ -142,6 +150,7 @@ export const products = [
         rating: 4.7,
         reviews: 310,
         inStock: true,
+        category: 'Diabetes Care',
     },
 
     {
@@ -154,5 +163,6 @@ export const products = [
         rating: 4.7,
         reviews: 310,
         inStock: true,
+        category: 'Health Foods',
     }
 ];
