@@ -7,10 +7,12 @@ import Hero from './components/Mainpage/hero';
 import ProductList from './components/Mainpage/products';
 import Footer from './components/Mainpage/Footer';
 import ProductDetailPage from './components/Mainpage/ProductDetailsPage';
-import CartPage from './components/Mainpage/CartPage'; // Import the new CartPage
+import CartPage from './components/Mainpage/CartPage';
+import AuthPage from './components/Auth/AuthPage';
 
 const App = () => {
   const [cart, setCart] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // login state
 
   const handleIncreaseQuantity = (productId) => {
     setCart(prevCart => ({ ...prevCart, [productId]: (prevCart[productId] || 0) + 1 }));
@@ -27,24 +29,28 @@ const App = () => {
       }
     });
   };
-  
+
   const cartCount = Object.values(cart).reduce((total, count) => total + count, 0);
 
   const Home = () => (
-      <>
-          <Hero />
-          <ProductList 
-            cart={cart}
-            onIncreaseQuantity={handleIncreaseQuantity}
-            onDecreaseQuantity={handleDecreaseQuantity}
-          />
-      </>
+    <>
+      <Hero />
+      <ProductList 
+        cart={cart}
+        onIncreaseQuantity={handleIncreaseQuantity}
+        onDecreaseQuantity={handleDecreaseQuantity}
+      />
+    </>
   );
 
   return (
     <Router>
       <div className="App">
-        <Header cartCount={cartCount} />
+        <Header 
+          cartCount={cartCount} 
+          isLoggedIn={isLoggedIn} 
+          setIsLoggedIn={setIsLoggedIn} 
+        />
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -58,7 +64,6 @@ const App = () => {
                 />
               } 
             />
-            {/* --- Add the new CartPage route --- */}
             <Route 
               path="/cart"
               element={
@@ -69,12 +74,14 @@ const App = () => {
                 />
               }
             />
+            {/* Pass setIsLoggedIn to AuthPage */}
+            <Route path="/auth" element={<AuthPage setIsLoggedIn={setIsLoggedIn} />} />
           </Routes>
         </main>
         <Footer />
       </div>
     </Router>
   );
-}
+};
 
 export default App;
