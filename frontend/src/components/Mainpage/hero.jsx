@@ -44,7 +44,7 @@ const Hero = () => {
                     <div className="hero-content">
                         <h1 className="hero-title">{product.title}</h1>
                         <p className="hero-description">{product.description}</p>
-                        <button className="hero-button">Learn More</button>
+                        {/* <button className="hero-button">Learn More</button> */}
                     </div>
                 </div>
             ))}
