@@ -1,0 +1,152 @@
+/* --- Red & Black Theme for Profile Page --- */
+.profile-page-body {
+    background-color: #121212; /* Main dark background */
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    min-height: 90vh;
+}
+
+.profile-container {
+    max-width: 900px;
+}
+
+.profile-header {
+    color: #e53935; /* Accent red for the main header */
+    font-weight: 700;
+    border-bottom: 2px solid #333;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.profile-section {
+    background: #1e1e1e; /* Slightly lighter dark for cards */
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #333;
+    margin-bottom: 2rem;
+}
+
+.profile-section h2 {
+    color: #f1f1f1;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #333;
+    color: #ccc;
+}
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #aaa;
+}
+
+.display-mode, .edit-mode {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.edit-icon {
+    cursor: pointer;
+    color: #e53935; /* Red for edit action */
+    transition: transform 0.2s;
+}
+.edit-icon:hover {
+    transform: scale(1.2);
+}
+
+.edit-mode input {
+    padding: 8px 12px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #fff;
+    border-radius: 6px;
+}
+
+.edit-mode button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    background-color: #e53935;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.edit-mode button.cancel {
+    background-color: #555;
+}
+
+.address-card {
+    background: #2a2a2a;
+    color: #ccc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    position: relative;
+    border-left: 4px solid #e53935;
+}
+
+.address-card h5 {
+    color: #fff;
+    font-weight: 700;
+}
+
+.address-actions {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    gap: 15px;
+}
+
+.address-actions button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+.delete-address { color: #e53935; }
+.edit-address { color: #5aaaff; }
+
+.add-address-btn {
+    background: transparent;
+    border: 2px dashed #e53935;
+    color: #e53935;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.add-address-btn:hover {
+    background-color: #e53935;
+    color: white;
+}
+
+.add-address-form {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 1rem;
+    color: white;
+}
+.add-address-form input { 
+    padding: 12px; 
+    border: 1px solid #555; 
+    border-radius: 6px; 
+    background-color: #333;
+    color: #fff;
+}

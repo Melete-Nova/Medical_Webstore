@@ -48,6 +48,8 @@ const Header = ({ cartCount = 0, isLoggedIn, isAdmin, handleLogout, onSearchChan
                 <ul className="drawer-menu">
                     {/* Conditionally render Dashboard link if user is admin */}
                     {isAdmin && <li><Link to="/admin">Dashboard</Link></li>}
+                    {/* Add the profile link here */}
+                    <li><Link to="/profile">My Profile</Link></li>
                     <li><Link to="/orders">Order History</Link></li>
                     <li><Link to="#" className="logout-link" onClick={onLogoutClick}>Logout</Link></li>
                 </ul>
