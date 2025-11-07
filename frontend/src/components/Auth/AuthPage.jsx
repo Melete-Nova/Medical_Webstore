@@ -8,7 +8,7 @@ const AuthPage = ({ setIsLoggedIn, setIsAdmin }) => {
     const [isSignUp, setIsSignUp] = useState(false);
 
     return (
-        <div className="auth-page-body">
+        <div className="auth-page-wrapper">
             <div className={`auth-container ${isSignUp ? 'right-panel-active' : ''}`} id="container">
                 <SignUpForm />
                 {/* Pass both state setters to SignInForm */}
