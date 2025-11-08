@@ -4,7 +4,8 @@ import { products } from './ProductList.js';
 import { Plus, Trash } from 'react-bootstrap-icons';
 import './CartPage.css';
 
-const CartPage = ({ cart, onIncreaseQuantity, onDecreaseQuantity }) => {
+// Receive handleBuyNow as a prop
+const CartPage = ({ cart, onIncreaseQuantity, onDecreaseQuantity, handleBuyNow }) => {
     // Get full product details for items in the cart
     const cartItems = Object.keys(cart).map(id => {
         const product = products.find(p => p.id === parseInt(id));
@@ -75,7 +76,12 @@ const CartPage = ({ cart, onIncreaseQuantity, onDecreaseQuantity }) => {
                         <p className="text-success small">
                             <i className="bi bi-check-circle-fill"></i> Your order qualifies for FREE delivery.
                         </p>
-                        <button className="btn btn-warning w-100 proceed-btn">Proceed to Buy</button>
+                        <button 
+                            className="btn btn-warning w-100 proceed-btn"
+                            onClick={() => handleBuyNow(cartItems, subtotal)}
+                        >
+                            Proceed to Buy
+                        </button>
                     </div>
                 </div>
             </div>

@@ -1,60 +1,167 @@
-/* --- Add these styles to your existing CSS file --- */
-
-/* Action Box Styling */
-.action-box {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
+/* --- RED & BLACK THEME OVERHAUL for Amazon-Style Product Page --- */
+.product-detail-page-amazon {
+    background-color: #121212; /* Dark background */
+    color: #f1f1f1; /* Light default text color */
+    padding: 2rem 1.5rem;
+    font-family: Arial, sans-serif;
 }
 
-.price-in-box {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #e53935;
+/* --- 3-Column Layout (Structure remains) --- */
+.product-detail-layout {
+    display: grid;
+    grid-template-columns: 80px 1fr 320px;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: auto;
 }
 
-/* Cart Buttons Styling */
-.add-to-cart-detail-btn, .buy-now-btn {
-    font-weight: 600;
-    border-radius: 8px;
-    padding: 12px 0;
-    font-size: 1rem;
-}
-
-.add-to-cart-detail-btn {
-    background-color: #ffc107; /* Bootstrap warning yellow */
-    color: #212529;
-    border: none;
-}
-
-.buy-now-btn {
-    background-color: #0d6efd; /* Bootstrap primary blue */
-}
-
-
-/* Quantity Controller Styling from the image */
-.quantity-controller-detail {
+/* Column 1: Image Thumbnails */
+.thumbnail-column {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+}
+.thumbnail-image-container {
+    border: 1px solid #444; /* Darker border */
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.thumbnail-image-container:hover, .thumbnail-image-container.active {
+    border-color: #e53935; /* ACCENT RED for active/hover */
+    box-shadow: 0 0 3px 2px rgba(229, 57, 53, 0.5);
+}
+.thumbnail-image {
     width: 100%;
-    margin-bottom: 0.5rem; /* Space between controller and Buy Now button */
 }
 
-.quantity-btn-detail {
-    background-color: #f1f1f1;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    color: #333;
-    width: 50px;
-    height: 50px;
+/* Column 2: Main Image & Description */
+.main-content-column {
+    text-align: center;
+}
+.main-image-container {
+    margin-bottom: 2rem;
+}
+.main-image {
+    max-width: 80%;
+    height: auto;
+}
+.product-description-amazon h3 {
+    text-align: left;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #444; /* Darker border */
+    padding-bottom: 0.5rem;
+    color: #fff; /* White header */
+}
+.product-description-amazon p {
+    text-align: left;
+    color: #ccc; /* Light gray for description */
+    line-height: 1.6;
+}
+
+/* Column 3: Info & Purchase Box */
+.info-purchase-column h1 {
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: #f1f1f1; /* Light text */
+    line-height: 1.4;
+}
+.brand-link {
+    color: #e53935; /* ACCENT RED */
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.brand-link:hover { text-decoration: underline; }
+
+.rating-section {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    position: relative;
+}
+.rating-section .star-icon { color: #ffa41c; }
+.rating-popover {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #1e1e1e; /* Dark popover */
+    border: 1px solid #444;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    width: 300px;
+    z-index: 10;
+}
+.rating-bar { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; }
+.rating-bar .bar { flex-grow: 1; height: 20px; background: #333; border-radius: 4px; overflow: hidden; }
+.rating-bar .fill { height: 100%; background: #ffa41c; }
+
+.price-section .price {
+    color: #e53935; /* ACCENT RED for price */
+    font-size: 1.75rem;
+}
+.price-section .per-unit {
+    color: #aaa; /* Lighter gray for per-unit */
+    font-size: 0.8rem;
 }
 
-.quantity-display-detail {
-    font-size: 1.5rem;
+.delivery-info { font-size: 0.9rem; margin: 1rem 0; }
+.delivery-info strong { color: #66bb6a; } /* Brighter green for delivery */
+
+.purchase-box {
+    border: 1px solid #444;
+    background-color: #1e1e1e; /* Dark card background */
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+.purchase-box .stock-status { font-size: 1.1rem; font-weight: 500; }
+.purchase-box .in-stock { color: #66bb6a; }
+.purchase-box .out-of-stock { color: #ef5350; }
+
+.quantity-dropdown {
+    width: 100px;
+    padding: 6px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-color: #333; /* Dark dropdown */
+    color: #fff;
+    border-color: #555;
+}
+
+/* --- THEMED BUTTONS --- */
+.purchase-box .btn {
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 20px;
+    border: 1px solid;
     font-weight: 700;
-    padding: 0 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.2s, transform 0.2s;
+}
+.purchase-box .btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-add-to-cart {
+    background-color: #e53935; /* RED BUTTON */
+    border-color: #c62828;
+    color: #fff;
+}
+.btn-add-to-cart:hover {
+    background-color: #c62828;
+}
+
+.btn-buy-now {
+    background-color: #000; /* BLACK BUTTON */
+    border-color: #333;
+    color: #fff;
+    margin-top: 10px;
+}
+.btn-buy-now:hover {
+    background-color: #222;
 }

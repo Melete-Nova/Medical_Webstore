@@ -58,7 +58,32 @@ const ProfilePage = ({ user, setUser }) => {
                             </div>
                         )}
                     </div>
-                    {/* Add more fields here (email, mobile) following the same pattern */}
+                    {/* Email Field */}
+                    <div className="detail-item">
+                        <span className="detail-label">Email:</span>
+                        {editingField === 'email' ? (
+                            <div className="edit-mode">
+                                <input type="email" value={tempValue} onChange={(e) => setTempValue(e.target.value)} />
+                                <button onClick={handleSave}>Save</button>
+                                <button className="cancel" onClick={() => setEditingField(null)}>Cancel</button>
+                            </div>
+                        ) : (
+                            <div className="display-mode"><span>{user.email}</span><PencilSquare className="edit-icon" onClick={() => handleEdit('email', user.email)} /></div>
+                        )}
+                    </div>
+                    {/* Mobile Field */}
+                    <div className="detail-item">
+                        <span className="detail-label">Mobile:</span>
+                        {editingField === 'mobile' ? (
+                            <div className="edit-mode">
+                                <input type="tel" value={tempValue} onChange={(e) => setTempValue(e.target.value)} />
+                                <button onClick={handleSave}>Save</button>
+                                <button className="cancel" onClick={() => setEditingField(null)}>Cancel</button>
+                            </div>
+                        ) : (
+                            <div className="display-mode"><span>{user.mobile}</span><PencilSquare className="edit-icon" onClick={() => handleEdit('mobile', user.mobile)} /></div>
+                        )}
+                    </div>
                 </div>
 
                 <div className="profile-section">
