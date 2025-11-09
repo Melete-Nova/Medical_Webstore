@@ -58,7 +58,6 @@ body {
     text-decoration: none;
     color: #ffffff;
     font-size: 1rem;
-    padding-bottom: 5px;
     position: relative;
     transition: color 0.3s ease;
 }
@@ -115,7 +114,7 @@ body {
 
 .signin-btn:hover {
     background-color: #c62828; /* Darker red on hover */
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     color: #ffffff !important; /* Keep text color white on hover */
 }
 
