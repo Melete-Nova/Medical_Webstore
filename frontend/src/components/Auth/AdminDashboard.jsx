@@ -38,6 +38,21 @@ const AdminDashboard = ({ products, setProducts }) => {
         });
     };
 
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            // Revoke the old object URL if it exists
+            if (newProduct.imagePreview) {
+                URL.revokeObjectURL(newProduct.imagePreview);
+            }
+            setNewProduct(prev => ({
+                ...prev,
+                image: file, // Store the file object
+                imagePreview: URL.createObjectURL(file) // Create a new temporary URL for preview
+            }));
+        }
+    };
+
     return (
         <div className="admin-dashboard">
             <div className="dashboard-header">
@@ -92,7 +107,15 @@ const AdminDashboard = ({ products, setProducts }) => {
                             <input name="price" value={newProduct.price} onChange={handleInputChange} placeholder="Price (e.g., $19.99)" required />
                             <input name="smalldescription" value={newProduct.smalldescription} onChange={handleInputChange} placeholder="Short Description" required />
                             <textarea name="fullDescription" value={newProduct.fullDescription} onChange={handleInputChange} placeholder="Full Description" required />
-                            <input name="image" value={newProduct.image} onChange={handleInputChange} placeholder="Image Path (e.g., ../assets/images/product.png)" required />
+                            <label htmlFor="image-upload" className="form-label">Product Image</label>
+                            <input 
+                                id="image-upload"
+                                type="file"
+                                name="image"
+                                onChange={handleImageChange}
+                                accept="image/png, image/jpeg, image/webp"
+                                required 
+                            />
                             <label className="checkbox-label">
                                 <input type="checkbox" name="inStock" checked={newProduct.inStock} onChange={handleInputChange} />
                                 In Stock
