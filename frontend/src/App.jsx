@@ -8,16 +8,17 @@ import ProductList from './components/Mainpage/products';
 import Footer from './components/Mainpage/Footer';
 import ProductDetailPage from './components/Mainpage/ProductDetailsPage';
 import CartPage from './components/Mainpage/CartPage';
+import WishlistPage from './components/Mainpage/WishlistPage';
 import AuthPage from './components/Auth/AuthPage';
 import AdminDashboard from './components/Auth/AdminDashboard';
 import ProfilePage from './components/Mainpage/ProfilePage';
 import OrderPageHistory from './components/Mainpage/OrderPageHistory';
-import PurchaseModal from './components/Mainpage/PurchaseModal'; // Import the modal
+import PurchaseModal from './components/Mainpage/PurchaseModal';
 import { products as initialProducts } from './components/Mainpage/ProductList.js';
 
-// App component needs to be a child of Router to use hooks
 const AppContent = () => {
   const [cart, setCart] = useState({});
+  const [wishlist, setWishlist] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,18 +30,16 @@ const AppContent = () => {
       addresses: [{ id: 1, type: 'Home', line1: '123 Main St', city: 'Anytown', state: 'CA', zip: '12345' }]
   });
   
-  // --- State for Purchase Modal ---
   const [isPurchaseModalOpen, setPurchaseModalOpen] = useState(false);
   const [purchaseItems, setPurchaseItems] = useState([]);
   const [purchaseSubtotal, setPurchaseSubtotal] = useState(0);
 
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   const isProfileComplete = (currentUser) => {
     return currentUser.name && currentUser.email && currentUser.mobile && currentUser.addresses.length > 0;
   };
 
-  // --- Re-adding the handleBuyNow function ---
   const handleBuyNow = (items, subtotal) => {
     if (!isLoggedIn) {
         alert("Please sign in to proceed with your purchase.");
@@ -60,7 +59,7 @@ const AppContent = () => {
   const handleConfirmPurchase = () => {
       alert("Purchase confirmed! Thank you for your order.");
       setPurchaseModalOpen(false);
-      setCart({}); // Empty the cart after purchase
+      setCart({});
   };
   
   const handleIncreaseQuantity = (productId) => setCart(p => ({ ...p, [productId]: (p[productId] || 0) + 1 }));
@@ -72,9 +71,26 @@ const AppContent = () => {
     });
   };
 
+  const handleAddToWishlist = (productId) => {
+      if (!isLoggedIn) {
+          alert("Please sign in to add items to your wishlist.");
+          navigate('/auth');
+          return;
+      }
+      if (!wishlist.includes(productId)) {
+          setWishlist(prevWishlist => [...prevWishlist, productId]);
+      }
+  };
+
+  const handleRemoveFromWishlist = (productId) => {
+      setWishlist(prevWishlist => prevWishlist.filter(id => id !== productId));
+  };
+  
   const handleLogout = () => {
       setIsLoggedIn(false);
       setIsAdmin(false);
+      setCart({});
+      setWishlist([]);
   };
   
   const cartCount = Object.values(cart).reduce((sum, count) => sum + count, 0);
@@ -87,7 +103,7 @@ const AppContent = () => {
   });
 
   const Home = () => (
-      <><Hero /><ProductList products={filteredProducts} cart={cart} onIncreaseQuantity={handleIncreaseQuantity} onDecreaseQuantity={handleDecreaseQuantity}/></>
+      <><Hero /><ProductList products={filteredProducts} cart={cart} wishlist={wishlist} onIncreaseQuantity={handleIncreaseQuantity} onDecreaseQuantity={handleDecreaseQuantity} onAddToWishlist={handleAddToWishlist} /></>
   );
 
   return (
@@ -103,8 +119,13 @@ const AppContent = () => {
       )}
       <div className="App">
         <Header 
-          cartCount={cartCount} onSearchChange={setSearchTerm} onCategoryChange={setSelectedCategory}
-          isLoggedIn={isLoggedIn} isAdmin={isAdmin} handleLogout={handleLogout}
+          cartCount={cartCount}
+          wishlistCount={wishlist.length}
+          onSearchChange={setSearchTerm} 
+          onCategoryChange={setSelectedCategory}
+          isLoggedIn={isLoggedIn} 
+          isAdmin={isAdmin} 
+          handleLogout={handleLogout}
         />
         <main>
           <Routes>
@@ -114,8 +135,25 @@ const AppContent = () => {
             <Route path="/admin" element={isLoggedIn && isAdmin ? <AdminDashboard products={products} setProducts={setProducts} /> : <Navigate to="/auth" />} />
             <Route path="/profile" element={isLoggedIn ? <ProfilePage user={user} setUser={setUser} /> : <Navigate to="/auth" />} />
             <Route path="/orders" element={isLoggedIn ? <OrderPageHistory /> : <Navigate to="/auth" />} />
+            <Route 
+                path="/wishlist" 
+                element={isLoggedIn ? <WishlistPage wishlist={wishlist} products={products} onRemoveFromWishlist={handleRemoveFromWishlist} /> : <Navigate to="/auth" />} 
+            />
+            
+            {/* --- THIS IS THE CORRECTED ROUTE --- */}
+            <Route 
+                path="/product/:id" 
+                element={
+                    <ProductDetailPage 
+                        cart={cart}
+                        wishlist={wishlist}
+                        onIncreaseQuantity={handleIncreaseQuantity}
+                        handleBuyNow={handleBuyNow}
+                        onAddToWishlist={handleAddToWishlist}
+                    />
+                } 
+            />
 
-            <Route path="/product/:id" element={<ProductDetailPage cart={cart} onIncreaseQuantity={handleIncreaseQuantity} onDecreaseQuantity={handleDecreaseQuantity} handleBuyNow={handleBuyNow} />} />
             <Route path="/cart" element={<CartPage cart={cart} onIncreaseQuantity={handleIncreaseQuantity} onDecreaseQuantity={handleDecreaseQuantity} handleBuyNow={handleBuyNow} />} />
           </Routes>
         </main>
@@ -125,7 +163,6 @@ const AppContent = () => {
   );
 }
 
-// Wrapper component to provide Router context
 const App = () => (
   <Router>
     <AppContent />
