@@ -4,7 +4,7 @@ export const products = [
     {
         id: 1,
         name: 'BONLIN LINIMENT',
-        price: '$19.99',
+        price: '19.99',
         smalldescription: 'Emu Oil Pain Relief',
         fullDescription: 'A powerful and exclusive topical application for relief of pain with emu bird oil Emu bird oil is very well recognised in the treatment of rheumatic pains all over the world Be it a rheumatic pain, neurological or musculo-skeletal disorders relief is instant from immobility to mobility. Double action Bonlin proved to be an effective topical pain oil with Emu bird oil along with Devadaru, Gandupura Tailam, Kajuput Thailam etc.',
         image: '../assets/images/bonlin liniment.png',
@@ -16,7 +16,7 @@ export const products = [
     {
         id: 2,
         name: 'MEMORY CALTONE Syrup',
-        price: '$24.99',
+        price: '24.99',
         smalldescription: 'Memory Boost Supplement',
         fullDescription: 'An exclusive Nutrutional supplement increases memory in children and elderly people. A perfect blend of natural herbal ingredients for under nutrition in children above 3 years Caltone activates brain cells, increases mental stamina, memory power, concentration besides supplementation of calcium. Hence physical and mental growth are ensured quickly. Increases appetite in all ages. Best for sportsmen, school going children and old people. Memory Caltone contains proven, powerful herbs like Sankhapushpi, Satavari, Brahmi, Jalabrahmi etc.',
         image: '../assets/images/memory syrup.png',
@@ -28,7 +28,7 @@ export const products = [
     {
         id: 3,
         name: 'Cheveux',
-        price: '$9.99',
+        price: '9.99',
         smalldescription: 'Herbal Hair Tonic',
         fullDescription: 'CHEVEUX Herbal Hair Tonic from our sister concern SANYA NATURALS has proved in hair fall and aids in hair growth. Essential oils in our hair tonic treats specific hair problems like dandruff, premature greying of hair, and hair loss. It relieves dry and itchy scalps.',
         image: '../assets/images/cheveux.png',
@@ -40,7 +40,7 @@ export const products = [
     {
         id: 4,
         name: 'Ecliv-DS syrup',
-        price: '$59.99',
+        price: '59.99',
         smalldescription: 'Natural Digestive Syrup',
         fullDescription: 'DEEPANA Syrup: A natural digestant and appetizer of pure herbal origin. Reduces constipation and regulates bowel moment. Stimulates pancreas and improves secretion of digestive enzymes. Reduces belching and gas formation. Digests complex protein and oily fried foods. Good and acceptable taste for children also.',
         image: '../assets/images/ecliv-ds syrup.png',
@@ -52,7 +52,7 @@ export const products = [
     {
         id: 5,
         name: 'Gyn-30',
-        price: '$59.99',
+        price: '59.99',
         smalldescription: 'Herbal Women’s Health',
         fullDescription: 'G Y N -30 Syrup: For gyneocological disorders in females Reduces pelvic congestion and uterine disorders The remarkable gynic formula with astringent, analgesic, anti-inflammatary and uterine sedative, effective on the endometrium and ovarian tissues. Very effective in menorrhagia and metrorrhagia, dysfunctional uterine bleeding and leucorrhoea. Regulates menstrual cycle. An excellent utero ovarian sedative and anodyne formulation. G Y N- 30 Capsules A gynic sedative in capsule form Natural, herbal formula, normalizes menstrual cycle and checks menorrhea. Enriched with proven natural herbs like ASHOKA, LODHRA and SATAVARI.',
         image: '../assets/images/gyn 30.png',
@@ -65,7 +65,7 @@ export const products = [
     {
         id: 6,
         name: 'RAPID UP',
-        price: '$59.99',
+        price: '59.99',
         smalldescription: 'Erectile Wellness Formula',
         fullDescription: 'Our NEWEST product RAPID UP is a unique combination for the treatment of erectile dysfunction and loss of libido. It reduces stress, depression and relaxes the mind for better performance.',
         image: '../assets/images/rapid up.png',
@@ -78,7 +78,7 @@ export const products = [
     {
         id: 7,
         name: 'FERTI FORTE CAPSULES',
-        price: '$59.99',
+        price: '59.99',
         smalldescription: 'Herbal Fertility Booster',
         fullDescription: 'A pioneer product for infertility in both males and females Combines all the time-tested and well-established herbal ingredients like Aswagandha, Atmgupta, Saphedhmisri, Anacylus, Saffron, Gomutrashilajit etc. Increases sperm count and motility in male, and corrects all menstrual and other problems in females Besides, Ferti-Forte improves body immunity and has high antioxident properties',
         image: '../assets/images/ferti forte capsules.png',
@@ -91,7 +91,7 @@ export const products = [
     {
         id: 8,
         name: 'Sarmapain relief Balm',
-        price: '$59.99',
+        price: '59.99',
         smalldescription: 'All-Purpose Pain Balm',
         fullDescription: 'ur new product SARMA BALM is a unique balm for all pains',
         image: '../assets/images/sarma_balm.png',
@@ -104,7 +104,7 @@ export const products = [
     {
         id: 9,
         name: 'NANNARI SYRUP',
-        price: '$59.99',
+        price: '59.99',
         smalldescription: 'Sugar-Free Herbal Syrup',
         fullDescription: 'NEW NANNARI Syrup (SUGAR FREE): (1,000 ml) Since huge number of people are diabetic now-a-days and for Those people who want to drink New Nannari without sugar, we have NEW NANARI (SUGAR FREE). Diabetic patients can safely, unhesitatingly take (taste) New Nannari and get the benefits of it. Sugar-free New Nannari is made of natural herbal ingredients (SWARASA) with canned sugar and tested, verified and documented on patients for better safety.',
         image: '../assets/images/nannari syrup.png',
@@ -117,7 +117,7 @@ export const products = [
     {
         id: 10,
         name: 'NANNARI SHARABAT',
-        price: '$59.99',
+        price: '59.99',
         smalldescription: 'Herbal Summer Cooler',
         fullDescription: 'NEW NANNARI Syrup: (1,000 ml) South India’s No. 1 summer cool drink with excellent taste and flavour. Naturally derived, no artificial flavours added. Made from the roots of famous SUGANDHI PLANTS. The thick concentrate syrup contains the formula given by the ancient text books. New Nannari syrup keeps your body cool from over heat/summer heat instantly. Gives extra, instant energy, besides quenching the thirst. It replenishes the body imbalance of sodium/potassium salts thus protects you from dehydration. DATES SUGANDHI (SHARABAT): (1,000 ml) Made fortified with DATES for better cooling and energy gainer. Restores energy and immunity to body cells. A good laxative because of high dietery fibre. Protects colon.',
         image: '../assets/images/nannari sharabat.png',
@@ -130,7 +130,7 @@ export const products = [
     {
         id: 11,
         name: 'RAGI MALT POWER',
-        price: '$59.99',
+        price: '59.99',
         smalldescription: 'Nutritious Raagi Malt',
         fullDescription: 'Sri Sai RAAGI MALT POWDER: (500 gms) Raagi is a well-known ancient cereal used as a whole food in old ages. This is used as a RAAGI JAWA (a semi solid state of Raagi by adding water to its quantity required and heat it for some time, take out and cool it and eat, if required add a little salt or sugar for taste. You can also add butter milk to enhance its taste). We prepare the Raagi Malt by thorough processing, sprouting for two days and roasted for safety and long shelf life. Only Raagi contains rich minerals, proteins and fibre. METIONINE – a protein is available only in Raagi and hence it is considered as the whole food. It improves metabolism, hydrolysis of fat is taken care. Hence raagi is very useful in controlling obesity.',
         image: '../assets/images/ragi malt power.png',
@@ -143,7 +143,7 @@ export const products = [
     {
         id: 12,
         name: 'HOHA_20',
-        price: '$59.99',
+        price: '59.99',
         smalldescription: 'Herbal Diabetes Control',
         fullDescription: 'Diabetics is a chronic metabolic disorder and damages every vital organ in the body slowly if it is not treated properly and on time. India has become a diabetic capital of the world. So it is the time to protect and prevent from spreading with a sure and definite drug to combat the problem. HOHA-20 contains mostly Tiktha pradhana dravyas (of bitter origin) Helps correct impairment of insulin secretion and activates BETA CELLS to various insulin secretogogues. Controls post-pradial hypoglycemia. Increases vasodailatory action to inflow in the pancreatic gland. Increases metabolic activity at tissue and cellular level. Can be safely taken along with other OHA DRUGS. Safely and gradually can reduce the dependence of OHA DRUGS. Protects from retinoneuropathy, kidney damage, weight loss and other metabolic debilitating conditions. The rational combination of age-old and time tested herbs.',
         image: '../assets/images/hoha_20.png',
@@ -156,7 +156,7 @@ export const products = [
     {
         id: 14,
         name: 'Mixed millet',
-        price: '$59.99',
+        price: '59.99',
         smalldescription: 'Multi-Grain Energy Mix',
         fullDescription: 'Our Mixed Millet Multi-Grain porridge is made from sprouted and roasted millets and is a whole mix for fitness and instant energy. It is 100% natural and contains more than 30 varieties of sprouts and cereals.',
         image: '../assets/images/mixed millet.png',
