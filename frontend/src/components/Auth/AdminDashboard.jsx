@@ -1,56 +1,40 @@
 import React, { useState } from 'react';
-import { PlusCircleFill } from 'react-bootstrap-icons';
 import './AdminDashboard.css';
 
-// This component receives the product list and a function to update it
-const AdminDashboard = ({ products, setProducts }) => {
+// The component now receives 'onProductUpdate' instead of 'setProducts'
+const AdminDashboard = ({ products, setProducts, onProductUpdate }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newProduct, setNewProduct] = useState({
-        id: Date.now(), // Simple unique ID
-        name: '',
-        price: '',
-        smalldescription: '',
-        fullDescription: '',
-        image: '',
-        rating: 0,
-        reviews: 0,
-        inStock: true,
-        category: ''
+        name: '', price: '', smalldescription: '', fullDescription: '',
+        image: null, imagePreview: null, rating: 0, reviews: 0, inStock: true, category: ''
     });
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setNewProduct({
-            ...newProduct,
-            [name]: type === 'checkbox' ? checked : value
-        });
-    };
-
-    const handleAddProduct = (e) => {
-        e.preventDefault();
-        // Add the new product to the list in the parent component
-        setProducts(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
-        setIsModalOpen(false); // Close modal
-        // Reset form
-        setNewProduct({
-            id: Date.now(), name: '', price: '', smalldescription: '', fullDescription: '',
-            image: '', rating: 0, reviews: 0, inStock: true, category: ''
-        });
+        setNewProduct({ ...newProduct, [name]: type === 'checkbox' ? checked : value });
     };
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            // Revoke the old object URL if it exists
-            if (newProduct.imagePreview) {
-                URL.revokeObjectURL(newProduct.imagePreview);
-            }
-            setNewProduct(prev => ({
-                ...prev,
-                image: file, // Store the file object
-                imagePreview: URL.createObjectURL(file) // Create a new temporary URL for preview
-            }));
+            if (newProduct.imagePreview) URL.revokeObjectURL(newProduct.imagePreview);
+            setNewProduct(prev => ({ ...prev, image: file, imagePreview: URL.createObjectURL(file) }));
         }
+    };
+    
+    const handleAddProduct = (e) => {
+        e.preventDefault();
+        setProducts(prev => [...prev, { ...newProduct, id: Date.now(), image: newProduct.imagePreview }]);
+        setIsModalOpen(false);
+        setNewProduct({
+            name: '', price: '', smalldescription: '', fullDescription: '',
+            image: null, imagePreview: null, rating: 0, reviews: 0, inStock: true, category: ''
+        });
+    };
+
+    // This function now calls the new handler from props
+    const handleProductAction = (productId, action) => {
+        onProductUpdate(productId, action);
     };
 
     return (
@@ -58,7 +42,7 @@ const AdminDashboard = ({ products, setProducts }) => {
             <div className="dashboard-header">
                 <h1>Admin Dashboard</h1>
                 <button className="add-product-btn" onClick={() => setIsModalOpen(true)}>
-                    <PlusCircleFill size={20} />
+                    <i className="fas fa-plus-circle me-2"></i>
                     <span>Add New Product</span>
                 </button>
             </div>
@@ -72,7 +56,7 @@ const AdminDashboard = ({ products, setProducts }) => {
                             <th>Name</th>
                             <th>Category</th>
                             <th>Price</th>
-                            <th>Stock</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,9 +67,15 @@ const AdminDashboard = ({ products, setProducts }) => {
                                 <td>{product.category}</td>
                                 <td>{product.price}</td>
                                 <td>
-                                    <span className={`stock-status ${product.inStock ? 'in-stock' : 'out-of-stock'}`}>
-                                        {product.inStock ? 'In Stock' : 'Out of Stock'}
-                                    </span>
+                                    <select
+                                        className="form-select"
+                                        value={product.inStock ? 'in-stock' : 'out-of-stock'}
+                                        onChange={(e) => handleProductAction(product.id, e.target.value)}
+                                    >
+                                        <option value="in-stock">In Stock</option>
+                                        <option value="out-of-stock">Out of Stock</option>
+                                        <option value="delete" style={{ color: 'red' }}>Delete Product</option>
+                                    </select>
                                 </td>
                             </tr>
                         ))}
@@ -93,34 +83,25 @@ const AdminDashboard = ({ products, setProducts }) => {
                 </table>
             </div>
 
-            {/* Add Product Modal */}
             {isModalOpen && (
-                <div className="modal-overlay">
+                 <div className="modal-overlay">
                     <div className="modal-content">
-                        <div className="modal-header">
-                            <h2>Add a New Product</h2>
-                            <button className="close-modal-btn" onClick={() => setIsModalOpen(false)}>&times;</button>
-                        </div>
+                        <h2>Add New Product</h2>
                         <form onSubmit={handleAddProduct} className="add-product-form">
-                            <input name="name" value={newProduct.name} onChange={handleInputChange} placeholder="Product Name" required />
-                            <input name="category" value={newProduct.category} onChange={handleInputChange} placeholder="Category" required />
-                            <input name="price" value={newProduct.price} onChange={handleInputChange} placeholder="Price (e.g., $19.99)" required />
-                            <input name="smalldescription" value={newProduct.smalldescription} onChange={handleInputChange} placeholder="Short Description" required />
-                            <textarea name="fullDescription" value={newProduct.fullDescription} onChange={handleInputChange} placeholder="Full Description" required />
-                            <label htmlFor="image-upload" className="form-label">Product Image</label>
-                            <input 
-                                id="image-upload"
-                                type="file"
-                                name="image"
-                                onChange={handleImageChange}
-                                accept="image/png, image/jpeg, image/webp"
-                                required 
-                            />
-                            <label className="checkbox-label">
-                                <input type="checkbox" name="inStock" checked={newProduct.inStock} onChange={handleInputChange} />
-                                In Stock
-                            </label>
-                            <button type="submit">Add Product</button>
+                            <input type="text" name="name" placeholder="Product Name" value={newProduct.name} onChange={handleInputChange} required />
+                            <input type="text" name="category" placeholder="Product Category" value={newProduct.category} onChange={handleInputChange} required />
+                            <input type="number" name="price" placeholder="Price" value={newProduct.price} onChange={handleInputChange} required />
+                            <textarea name="smalldescription" placeholder="Short Description" value={newProduct.smalldescription} onChange={handleInputChange} required />
+                            <textarea name="fullDescription" placeholder="Full Description" value={newProduct.fullDescription} onChange={handleInputChange} required />
+                            
+                            <label htmlFor="image-upload">Product Image</label>
+                            <input id="image-upload" type="file" onChange={handleImageChange} accept="image/*" required />
+                            {newProduct.imagePreview && <img src={newProduct.imagePreview} alt="Preview" style={{ width: '100px', height: '100px', marginTop: '10px' }} />}
+                            
+                            <div className="form-actions">
+                                <button type="submit" className="btn-submit">Add Product</button>
+                                <button type="button" className="btn-cancel" onClick={() => setIsModalOpen(false)}>Cancel</button>
+                            </div>
                         </form>
                     </div>
                 </div>

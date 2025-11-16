@@ -1,4 +1,4 @@
-/* Section Styling */
+/* --- Section & General --- */
 .product-list-section {
     background-color: #f8f9fa;
 }
@@ -9,26 +9,27 @@
     margin-bottom: 3rem !important;
 }
 
-/* --- Card Styling --- */
+/* --- Product Card: The Core Container --- */
 .product-card {
-    border: 1px solid #e9ecef;
-    border-radius: 12px;
+    border: none; /* Shadow is enough */
+    border-radius: 15px;
     background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 100%;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    min-height: 460px; /* stable card height */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Important for child animations */
+    position: relative; /* Anchor for absolute elements */
+    min-height: 420px; /* Stable card height */
 }
 
 .product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Make only top area clickable */
+/* --- Clickable Area (Image + Text) --- */
 .clickable-area {
     cursor: pointer;
     flex-grow: 1;
@@ -36,14 +37,14 @@
     flex-direction: column;
 }
 
-/* Image container with fixed ratio */
+/* --- Image Container & Zoom Effect --- */
 .product-image-container {
     position: relative;
     width: 100%;
-    padding-top: 100%; /* 1:1 ratio */
+    padding-top: 100%; /* 1:1 Aspect Ratio */
     overflow: hidden;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 .product-image {
@@ -52,73 +53,180 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    padding: 1.5rem;
+    object-fit: contain; /* Use contain to show the whole product */
+    padding: 1rem;
+    transition: transform 0.35s ease-in-out;
 }
 
-/* --- Body Text --- */
+.product-card:hover .product-image {
+    transform: scale(1.07); /* Zoom effect on hover */
+}
+
+/* --- Card Body --- */
 .card-body {
-    padding: 1rem;
+    padding: 1.25rem;
     text-align: center;
+    flex-grow: 1; /* Ensures body takes available space */
 }
 
 .card-title {
     font-size: 1.1rem;
     font-weight: 600;
     color: #343a40;
+    margin-bottom: 0.5rem;
 }
 
 .card-text {
     font-size: 0.9rem;
     color: #6c757d;
+    line-height: 1.4;
 }
 
-/* --- Footer --- */
+/* --- Card Footer (Price & Actions) --- */
 .product-footer {
-    padding: 1rem;
+    padding: 1rem 1.25rem;
     text-align: center;
     border-top: 1px solid #f1f1f1;
+    background: #fff;
+    min-height: 90px; /* Reserve space for actions */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .price-tag {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: #e53935;
-    margin-bottom: 0.5rem;
+    color: #333;
 }
 
-/* --- Cart Controls --- */
-.cart-controls {
+/* --- Action Buttons Overlay --- */
+/* This container slides up on hover */
+.actions-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.9);
+    /* backdrop-filter: blur(5px); */
+    padding: 1rem;
+    border-top: 1px solid #eee;
+    height: 90px; /* Match footer height */
+
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60px; /* fixed height prevents jump */
-    transition: all 0.2s ease;
+
+    /* --- Animation --- */
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
+.product-card:hover .actions-overlay {
+    transform: translateY(0); /* Slides up */
+    opacity: 1;
+}
+
+/* --- Wishlist Button --- */
+/* --- Wishlist Button --- */
+.wishlist-btn {
+    /* Positioning and base styles */
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    
+    /* --- KEY CHANGE: Remove background and border --- */
+    background: transparent;
+    border: none;
+    padding: 0; /* Remove any default padding */
+    
+    /* Style the heart icon itself */
+    color: #bbb; /* Default color: a neutral light grey */
+    font-size: 1.5rem; /* A larger, more clickable icon */
+    
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+/* --- Add these styles to your products.css file --- */
+
+/* Style for Out of Stock cards */
+.product-card.out-of-stock .product-image {
+    filter: grayscale(100%);
+    opacity: 0.6;
+}
+
+.product-card.out-of-stock .card-title,
+.product-card.out-of-stock .card-text,
+.product-card.out-of-stock .price-tag {
+    color: #adb5bd !important;
+}
+
+/* Styles for Coming Soon cards */
+.product-card.coming-soon {
+    pointer-events: none; /* Disable clicks on the card itself */
+}
+
+.product-card.coming-soon .product-image-container {
+    filter: grayscale(50%) brightness(90%);
+}
+
+.coming-soon-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+/* --- KEY CHANGE: Define the hover effect --- */
+.wishlist-btn:hover {
+    background: transparent; /* Ensure no background appears on hover */
+    color: #e53935;        /* Change ONLY the heart's color to red */
+    transform: scale(1.2);   /* Add a subtle "pop" effect */
+}
+
+/* Style for when an item IS in the wishlist */
+.wishlist-btn.wishlisted {
+    color: #e53935; /* Keep the heart red */
+}
+
+/* Optional: Remove the blue outline when the button is clicked */
+.wishlist-btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* --- Cart & Quantity Controls --- */
 .add-to-cart-btn {
-    background-color: #e53935;
+    background-image: linear-gradient(to right, #e53935, #d81b60);
     color: #fff;
     border: none;
     border-radius: 8px;
     font-weight: 600;
     width: 100%;
-    padding: 10px 0;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    max-width: 180px;
+    padding: 12px 0;
+    box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
+    transition: all 0.3s ease;
 }
 
 .add-to-cart-btn:hover {
-    background-color: #c62828;
-    transform: scale(1.03);
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(229, 57, 53, 0.4);
 }
 
-/* Quantity Controller */
 .quantity-controller {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    height: 100%;
 }
 
 .quantity-btn {
@@ -129,20 +237,74 @@
     color: #343a40;
     width: 40px;
     height: 40px;
-    transition: transform 0.1s ease;
+    transition: transform 0.1s ease, background-color 0.2s ease;
 }
 
 .quantity-btn:hover {
     transform: scale(1.05);
+    background-color: #d8dcdf;
 }
 
 .quantity-display {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
+    min-width: 30px; /* Prevents layout shift */
+    text-align: center;
 }
 
-/* Prevent scroll jumps */
-button {
-    type: button;
-    scroll-behavior: auto;
+/* --- Add these new styles to your products.css file --- */
+
+/* Animation Wrapper for each card */
+.product-card-wrapper {
+    /* Initial state: invisible and moved down */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
+
+/* Visible state: triggered by JavaScript */
+.product-card-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger the animation for a nice effect */
+/* This adds a small delay to each card in the row */
+.product-card-wrapper:nth-child(2) { transition-delay: 0.1s; }
+.product-card-wrapper:nth-child(3) { transition-delay: 0.2s; }
+.product-card-wrapper:nth-child(4) { transition-delay: 0.3s; }
+
+/* --- No changes needed for the rest of your CSS --- */
+
+/* --- Animation Styles for Product Cards --- */
+
+.product-card-wrapper {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* --- Rule for SCROLLING DOWN --- */
+/* Start below the final position */
+.product-card-wrapper.scrolling-down {
+    transform: translateY(40px);
+}
+
+/* --- Rule for SCROLLING UP --- */
+/* Start above the final position */
+.product-card-wrapper.scrolling-up {
+    transform: translateY(-40px);
+}
+
+/* --- VISIBLE STATE --- */
+/* When the card is visible, animate it to its natural position */
+.product-card-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger the animation for a nice effect */
+.product-card-wrapper:nth-child(2) { transition-delay: 0.1s; }
+.product-card-wrapper:nth-child(3) { transition-delay: 0.2s; }
+.product-card-wrapper:nth-child(4) { transition-delay: 0.3s; }
+
+/* --- The rest of your CSS for .product-card, .actions-overlay, etc. remains the same --- */

@@ -1,91 +1,175 @@
+/* --- Main Modal Container --- */
 .purchase-modal-content {
-    background: #f8f9fa;
-    padding: 0;
+    background: #fff;
     border-radius: 12px;
     width: 90%;
-    max-width: 700px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    overflow: hidden; /* To contain header background */
+    max-width: 850px; /* Wider for two columns */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: flex; /* Key for two-column layout */
+    overflow: hidden;
 }
 
-.purchase-modal-content .modal-header {
-    background-color: #343a40;
-    color: white;
+/* --- Left Column: Details --- */
+.purchase-details-column {
+    flex: 6; /* Takes up more space */
+    border-right: 1px solid #e9ecef;
+}
+
+.purchase-details-column .modal-header {
     padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.purchase-details-column .modal-header h2 {
+    font-size: 1.5rem;
 }
 
 .purchase-body {
     padding: 1.5rem;
-    max-height: 60vh;
+    max-height: 70vh;
     overflow-y: auto;
 }
 
 .purchase-section {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .purchase-section h3 {
-    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
     font-weight: 600;
-    border-bottom: 1px solid #dee2e6;
-    padding-bottom: 0.5rem;
     margin-bottom: 1rem;
+    color: #343a40;
+}
+.purchase-section h3 .me-2 {
+    color: #6c757d;
 }
 
+/* Address Selection */
 .address-selection {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 1rem;
     padding: 1rem;
     border: 1px solid #dee2e6;
     border-radius: 8px;
-    margin-bottom: 0.5rem;
     cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: all 0.2s ease;
+    position: relative;
 }
-.address-selection:hover {
-    border-color: #adb5bd;
+.address-selection p {
+    margin: 0;
+    color: #6c757d;
 }
 .address-selection.selected {
     border-color: #e53935;
-    box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.25);
+    background-color: #fff8f7;
+    box-shadow: 0 0 0 1px #e53935;
+}
+.address-selection:not(.selected):hover {
+    border-color: #adb5bd;
 }
 
-.payment-mock {
-    padding: 1rem;
-    background: #e9ecef;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: 500;
+/* Custom Radio Icon */
+.radio-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ced4da;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.address-selection.selected .radio-icon {
+    border-color: #e53935;
+}
+.radio-icon::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #e53935;
+    transform: scale(0);
+    transition: transform 0.2s ease;
+}
+.address-selection.selected .radio-icon::after {
+    transform: scale(1);
 }
 
-.order-summary .summary-line {
+/* Payment Section */
+.payment-mock-selected {
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem 0;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    font-weight: 500;
 }
-.order-summary .summary-line.total {
-    font-weight: 700;
-    font-size: 1.2rem;
-    border-top: 2px solid #dee2e6;
-    margin-top: 0.5rem;
-    padding-top: 1rem;
+.card-icons {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    color: #adb5bd;
 }
 
-.purchase-modal-content .modal-footer {
-    padding: 1rem 1.5rem;
-    background-color: #f1f1f1;
-    border-top: 1px solid #dee2e6;
-    text-align: right;
+/* --- Right Column: Order Summary --- */
+.order-summary-column {
+    flex: 4; /* Takes up less space */
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-summary-column h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    color: #495057;
+}
+
+.summary-divider {
+    border-top: 1px dashed #ced4da;
+    margin: 1rem 0;
+}
+
+.summary-line.total {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #212529;
+}
+
+/* Footer & Confirm Button */
+.order-summary-column .modal-footer {
+    margin-top: auto; /* Pushes footer to the bottom */
+    padding-top: 1.5rem;
 }
 
 .confirm-purchase-btn {
-    background-color: #e53935;
+    background-image: linear-gradient(to right, #e53935, #d81b60);
     color: white;
     border: none;
-    padding: 12px 30px;
+    padding: 15px 30px;
+    width: 100%;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);
+}
+
+.confirm-purchase-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.4);
 }

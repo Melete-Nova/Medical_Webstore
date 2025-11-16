@@ -12,10 +12,10 @@ import AdminDashboard from './components/Auth/AdminDashboard';
 import ProfilePage from './components/Mainpage/ProfilePage';
 import OrderPageHistory from './components/Mainpage/OrderPageHistory';
 import PurchaseModal from './components/Mainpage/PurchaseModal';
-import HomePage from './components/Mainpage/HomePage'; // ✅ NEW SEPARATE FILE
+import HomePage from './components/Mainpage/HomePage';
 import { products as initialProducts } from './components/Mainpage/ProductList.js';
+import ScrollToTop from './components/Mainpage/ScrollToTop.js';
 
-/* ✅ Scroll Fix Component */
 const ScrollFix = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -46,11 +46,9 @@ const AppContent = () => {
 
   const navigate = useNavigate();
 
-  // ✅ Profile completeness check
   const isProfileComplete = (currentUser) =>
     currentUser.name && currentUser.email && currentUser.mobile && currentUser.addresses.length > 0;
 
-  // ✅ Purchase handlers
   const handleBuyNow = (items, subtotal) => {
     if (!isLoggedIn) {
       alert("Please sign in to proceed with your purchase.");
@@ -73,22 +71,17 @@ const AppContent = () => {
     setCart({});
   };
 
-  // ✅ Cart handlers
   const handleIncreaseQuantity = (productId) =>
     setCart((p) => ({ ...p, [productId]: (p[productId] || 0) + 1 }));
 
   const handleDecreaseQuantity = (productId) => {
     setCart((p) => {
       const newQty = (p[productId] || 0) - 1;
-      if (newQty <= 0) {
-        const { [productId]: _, ...rest } = p;
-        return rest;
-      }
+      if (newQty <= 0) { const { [productId]: _, ...rest } = p; return rest; }
       return { ...p, [productId]: newQty };
     });
   };
 
-  // ✅ Wishlist handlers
   const handleAddToWishlist = (productId) => {
     if (!isLoggedIn) {
       alert("Please sign in to add items to your wishlist.");
@@ -103,7 +96,37 @@ const AppContent = () => {
   const handleRemoveFromWishlist = (productId) =>
     setWishlist((prev) => prev.filter((id) => id !== productId));
 
-  // ✅ Logout
+  // ✅ --- START: NEW PRODUCT UPDATE LOGIC ---
+  const handleProductUpdate = (productId, action) => {
+    const productToUpdate = products.find(p => p.id === productId);
+    if (!productToUpdate) return;
+
+    if (action === 'delete') {
+      if (window.confirm(`Are you sure you want to delete ${productToUpdate.name}? This cannot be undone.`)) {
+        setProducts(prev => prev.filter(p => p.id !== productId));
+        setCart(prev => {
+            const { [productId]: _, ...rest } = prev;
+            return rest;
+        });
+        setWishlist(prev => prev.filter(id => id !== productId));
+      }
+      return;
+    }
+
+    const newStockStatus = action === 'in-stock';
+    if (newStockStatus === false && cart[productId]) {
+      const { [productId]: _, ...restOfCart } = cart;
+      setCart(restOfCart);
+      if (!wishlist.includes(productId)) {
+        setWishlist(prev => [...prev, productId]);
+      }
+      alert(`${productToUpdate.name} is now out of stock. It has been removed from your cart and added to your wishlist.`);
+    }
+
+    setProducts(prev => prev.map(p => p.id === productId ? { ...p, inStock: newStockStatus } : p));
+  };
+  // ✅ --- END: NEW PRODUCT UPDATE LOGIC ---
+
   const handleLogout = () => {
     setIsLoggedIn(false);
     setIsAdmin(false);
@@ -111,7 +134,6 @@ const AppContent = () => {
     setWishlist([]);
   };
 
-  // ✅ Derived values
   const cartCount = Object.values(cart).reduce((sum, count) => sum + count, 0);
 
   const filteredProducts = products.filter((product) => {
@@ -124,14 +146,9 @@ const AppContent = () => {
 
   return (
     <>
+      <ScrollToTop />
       {isPurchaseModalOpen && (
-        <PurchaseModal
-          user={user}
-          items={purchaseItems}
-          subtotal={purchaseSubtotal}
-          onClose={() => setPurchaseModalOpen(false)}
-          onConfirm={handleConfirmPurchase}
-        />
+        <PurchaseModal user={user} items={purchaseItems} subtotal={purchaseSubtotal} onClose={() => setPurchaseModalOpen(false)} onConfirm={handleConfirmPurchase} />
       )}
 
       <div className="App">
@@ -147,49 +164,18 @@ const AppContent = () => {
 
         <main>
           <Routes>
-            {/* ✅ Fixed — HomePage now separated and stable */}
-            <Route
-              path="/"
-              element={
-                <HomePage
-                  products={filteredProducts}
-                  cart={cart}
-                  wishlist={wishlist}
-                  onIncreaseQuantity={handleIncreaseQuantity}
-                  onDecreaseQuantity={handleDecreaseQuantity}
-                  onAddToWishlist={handleAddToWishlist}
-                />
-              }
-            />
-
+            <Route path="/" element={ <HomePage products={filteredProducts} cart={cart} wishlist={wishlist} onIncreaseQuantity={handleIncreaseQuantity} onDecreaseQuantity={handleDecreaseQuantity} onAddToWishlist={handleAddToWishlist} /> } />
             <Route path="/auth" element={<AuthPage setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} />} />
 
+            {/* ✅ UPDATED: Passing the new handler to AdminDashboard */}
             <Route
               path="/admin"
               element={
                 isLoggedIn && isAdmin ? (
-                  <AdminDashboard products={products} setProducts={setProducts} />
-                ) : (
-                  <Navigate to="/auth" />
-                )
-              }
-            />
-
-            <Route
-              path="/profile"
-              element={isLoggedIn ? <ProfilePage user={user} setUser={setUser} /> : <Navigate to="/auth" />}
-            />
-
-            <Route path="/orders" element={isLoggedIn ? <OrderPageHistory /> : <Navigate to="/auth" />} />
-
-            <Route
-              path="/wishlist"
-              element={
-                isLoggedIn ? (
-                  <WishlistPage
-                    wishlist={wishlist}
+                  <AdminDashboard
                     products={products}
-                    onRemoveFromWishlist={handleRemoveFromWishlist}
+                    setProducts={setProducts} // For adding new products
+                    onProductUpdate={handleProductUpdate} // For updating/deleting existing ones
                   />
                 ) : (
                   <Navigate to="/auth" />
@@ -197,30 +183,11 @@ const AppContent = () => {
               }
             />
 
-            <Route
-              path="/product/:id"
-              element={
-                <ProductDetailPage
-                  cart={cart}
-                  wishlist={wishlist}
-                  onIncreaseQuantity={handleIncreaseQuantity}
-                  handleBuyNow={handleBuyNow}
-                  onAddToWishlist={handleAddToWishlist}
-                />
-              }
-            />
-
-            <Route
-              path="/cart"
-              element={
-                <CartPage
-                  cart={cart}
-                  onIncreaseQuantity={handleIncreaseQuantity}
-                  onDecreaseQuantity={handleDecreaseQuantity}
-                  handleBuyNow={handleBuyNow}
-                />
-              }
-            />
+            <Route path="/profile" element={isLoggedIn ? <ProfilePage user={user} setUser={setUser} /> : <Navigate to="/auth" />} />
+            <Route path="/orders" element={isLoggedIn ? <OrderPageHistory /> : <Navigate to="/auth" />} />
+            <Route path="/wishlist" element={ isLoggedIn ? ( <WishlistPage wishlist={wishlist} products={products} onRemoveFromWishlist={handleRemoveFromWishlist} /> ) : ( <Navigate to="/auth" /> ) } />
+            <Route path="/product/:id" element={ <ProductDetailPage cart={cart} wishlist={wishlist} onIncreaseQuantity={handleIncreaseQuantity} handleBuyNow={handleBuyNow} onAddToWishlist={handleAddToWishlist} /> } />
+            <Route path="/cart" element={ <CartPage cart={cart} onIncreaseQuantity={handleIncreaseQuantity} onDecreaseQuantity={handleDecreaseQuantity} handleBuyNow={handleBuyNow} /> } />
           </Routes>
         </main>
 
@@ -230,7 +197,6 @@ const AppContent = () => {
   );
 };
 
-/* ✅ Main App with Router + ScrollFix */
 const App = () => (
   <Router>
     <ScrollFix />

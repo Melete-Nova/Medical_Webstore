@@ -70,8 +70,8 @@ const ProductDetailPage = ({ cart, wishlist, onIncreaseQuantity, handleBuyNow, o
                     <hr />
 
                     <div className="price-section">
-                        <span className="price">{product.price}</span>
-                        <span className="per-unit"> ($19.98 / 100g)</span>
+                        <span className="price">₹{product.price}</span>
+                        <span className="per-unit"> (₹19.98 / 100g)</span>
                     </div>
 
                     <div className="delivery-info">

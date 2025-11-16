@@ -72,7 +72,7 @@ const CartPage = ({ cart, onIncreaseQuantity, onDecreaseQuantity, handleBuyNow }
                 <div className="col-lg-4">
                     <div className="subtotal-card">
                         <h4>Subtotal ({totalItems} items):</h4>
-                        <h2 className="subtotal-amount">${subtotal.toFixed(2)}</h2>
+                        <h2 className="subtotal-amount">₹{subtotal.toFixed(2)}</h2>
                         <p className="text-success small">
                             <i className="bi bi-check-circle-fill"></i> Your order qualifies for FREE delivery.
                         </p>
